@@ -14,8 +14,9 @@ dependencies:
   flutter_plugin_android_lifecycle: ^2.0.1
   stream_transform: ^2.1.0
   zdc_maps_flutter_platform_interface:
-    url: https://github.com/mvn-duypham-hn/zdc_maps_flutter_platform_interface
-    ref: main
+    git:
+      url: https://github.com/mvn-duypham-hn/zdc_maps_flutter_platform_interface.git
+      ref: main
 
 dev_dependencies:
   flutter_test:
