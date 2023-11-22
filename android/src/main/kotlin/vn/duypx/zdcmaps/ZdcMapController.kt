@@ -748,4 +748,13 @@ class ZdcMapController(
             Choreographer.getInstance().postFrameCallback { f.run() }
         }
     }
+
+    override fun onCameraChange(p0: CameraPosition?) {
+        if (!trackCameraPosition) {
+            return
+        }
+        val arguments: MutableMap<String, Any?> = HashMap(2)
+        arguments["position"] = cameraPositionToJson(p0)
+        methodChannel.invokeMethod("camera#onMove", arguments)
+    }
 }

@@ -12,4 +12,5 @@ interface ZdcMapListener :
     ZDCMap.OnPolylineClickListener,
     ZDCMap.OnCircleClickListener,
     ZDCMap.OnMapClickListener,
-    ZDCMap.OnMapLongClickListener
+    ZDCMap.OnMapLongClickListener,
+    ZDCMap.OnCameraChangeListener

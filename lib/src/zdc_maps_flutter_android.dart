@@ -42,10 +42,6 @@ class ZdcMapsFlutterAndroid extends ZdcMapsFlutterPlatform {
     ZdcMapsFlutterPlatform.instance = ZdcMapsFlutterAndroid();
   }
 
-  /// The method channel used to initialize the native Zdc Maps SDK.
-  // final MethodChannel _initializerChannel = const MethodChannel(
-  //     'plugins.flutter.dev/google_maps_android');
-
   // Keep a collection of id -> channel
   // Every method call passes the int mapId
   final Map<int, MethodChannel> _channels = <int, MethodChannel>{};
