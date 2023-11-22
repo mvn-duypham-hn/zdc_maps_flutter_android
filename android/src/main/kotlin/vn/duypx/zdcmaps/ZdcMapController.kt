@@ -473,6 +473,7 @@ class ZdcMapController(
         zdcMap!!.setOnCircleClickListener(listener)
         zdcMap!!.setOnMapClickListener(listener)
         zdcMap!!.setOnMapLongClickListener(listener)
+        zdcMap!!.setOnCameraChangeListener(listener)
     }
 
     // DefaultLifecycleObserver
