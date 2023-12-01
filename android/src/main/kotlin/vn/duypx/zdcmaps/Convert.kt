@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 package vn.duypx.zdcmaps
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -16,6 +17,7 @@ import com.zdc.android.zms.maps.model.LatLngBounds
 /** Conversions between JSON-like values and ZdcMaps data types.  */
 internal object Convert {
 
+    @SuppressLint("PrivateResource")
     private fun toBitmapDescriptor(o: Any, context: Context): Bitmap {
         val data = toList(o)
         return when (toString(data!![0]!!)) {

@@ -695,16 +695,14 @@ class ZdcMapController(
 
     @SuppressLint("MissingPermission")
     private fun updateMyLocationSettings() {
+        zdcMap!!.uiSettings.isMyLocationButtonEnabled = myLocationButtonEnabled
         if (hasLocationPermission()) {
             // The plugin doesn't add the location permission by default so that apps that don't need
             // the feature won't require the permission.
             // Gradle is doing a static check for missing permission and in some configurations will
             // fail the build if the permission is missing. The following disables the Gradle lint.
             zdcMap!!.setMyLocationEnabled(myLocationEnabled)
-            zdcMap!!.uiSettings.isMyLocationButtonEnabled = myLocationButtonEnabled
         } else {
-            // TODO(amirh): Make the options update fail.
-            // https://github.com/flutter/flutter/issues/24327
             Log.e(TAG, "Cannot enable MyLocation layer as location permissions are not granted")
         }
     }

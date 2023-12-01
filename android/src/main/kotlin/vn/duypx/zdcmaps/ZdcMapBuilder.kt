@@ -30,6 +30,8 @@ class ZdcMapBuilder : ZdcMapOptionsSink {
         binaryMessenger: BinaryMessenger,
         lifecycleProvider: LifecycleProvider
     ): ZdcMapController {
+        options.centerMarkerEnabled(false)
+        options.scaleBarEnabled(false)
         val controller =
             ZdcMapController(id, context, binaryMessenger, lifecycleProvider, options)
         controller.setMyLocationEnabled(myLocationEnabled)
