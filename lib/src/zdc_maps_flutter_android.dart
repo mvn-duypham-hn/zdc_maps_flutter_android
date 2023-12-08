@@ -35,12 +35,28 @@ class UnknownMapIDError extends Error {
   }
 }
 
+/// The possible android map renderer types that can be
+/// requested from the native Google Maps SDK.
+enum AndroidMapRenderer {
+  /// Latest renderer type.
+  latest,
+
+  /// Legacy renderer type.
+  legacy,
+
+  /// Requests the default map renderer type.
+  platformDefault,
+}
+
 /// An implementation of [ZdcMapsFlutterPlatform] for Android.
 class ZdcMapsFlutterAndroid extends ZdcMapsFlutterPlatform {
   /// Registers the Android implementation of ZdcMapsFlutterPlatform.
   static void registerWith() {
     ZdcMapsFlutterPlatform.instance = ZdcMapsFlutterAndroid();
   }
+
+  final MethodChannel _initializerChannel =
+      const MethodChannel('vn.duypx/zdc_maps_android_initializer');
 
   // Keep a collection of id -> channel
   // Every method call passes the int mapId
@@ -497,40 +513,40 @@ class ZdcMapsFlutterAndroid extends ZdcMapsFlutterPlatform {
   ///
   /// The returned [Future] completes after renderer has been initialized.
   /// Initialized [AndroidMapRenderer] type is returned.
-  // Future<AndroidMapRenderer> initializeWithRenderer(
-  //     AndroidMapRenderer? rendererType) async {
-  //   String preferredRenderer;
-  //   switch (rendererType) {
-  //     case AndroidMapRenderer.latest:
-  //       preferredRenderer = 'latest';
-  //       break;
-  //     case AndroidMapRenderer.legacy:
-  //       preferredRenderer = 'legacy';
-  //       break;
-  //     case AndroidMapRenderer.platformDefault:
-  //     case null:
-  //       preferredRenderer = 'default';
-  //   }
-  //
-  //   final String? initializedRenderer = await _initializerChannel
-  //       .invokeMethod<String>('initializer#preferRenderer',
-  //       <String, dynamic>{'value': preferredRenderer});
-  //
-  //   if (initializedRenderer == null) {
-  //     throw AndroidMapRendererException('Failed to initialize map renderer.');
-  //   }
-  //
-  //   // Returns mapped [AndroidMapRenderer] enum type.
-  //   switch (initializedRenderer) {
-  //     case 'latest':
-  //       return AndroidMapRenderer.latest;
-  //     case 'legacy':
-  //       return AndroidMapRenderer.legacy;
-  //     default:
-  //       throw AndroidMapRendererException(
-  //           'Failed to initialize latest or legacy renderer, got $initializedRenderer.');
-  //   }
-  // }
+  Future<AndroidMapRenderer> initializeWithRenderer(
+      AndroidMapRenderer? rendererType) async {
+    String preferredRenderer;
+    switch (rendererType) {
+      case AndroidMapRenderer.latest:
+        preferredRenderer = 'latest';
+        break;
+      case AndroidMapRenderer.legacy:
+        preferredRenderer = 'legacy';
+        break;
+      case AndroidMapRenderer.platformDefault:
+      case null:
+        preferredRenderer = 'default';
+    }
+
+    final String? initializedRenderer = await _initializerChannel
+        .invokeMethod<String>('initializer#preferRenderer',
+            <String, dynamic>{'value': preferredRenderer});
+
+    if (initializedRenderer == null) {
+      throw AndroidMapRendererException('Failed to initialize map renderer.');
+    }
+
+    // Returns mapped [AndroidMapRenderer] enum type.
+    switch (initializedRenderer) {
+      case 'latest':
+        return AndroidMapRenderer.latest;
+      case 'legacy':
+        return AndroidMapRenderer.legacy;
+      default:
+        throw AndroidMapRendererException(
+            'Failed to initialize latest or legacy renderer, got $initializedRenderer.');
+    }
+  }
 
   Widget _buildView(
     int creationId,

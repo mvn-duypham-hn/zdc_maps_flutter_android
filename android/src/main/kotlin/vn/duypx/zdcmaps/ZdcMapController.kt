@@ -113,7 +113,9 @@ class ZdcMapController(
         polylinesController = PolylinesController(methodChannel, density)
         circlesController = CirclesController(methodChannel, density)
         tileOverlaysController = TileOverlaysController(methodChannel)
+    }
 
+    fun initial() {
         lifecycleProvider.getLifecycle()?.addObserver(this)
         mapView.getMapAsync(this)
     }
@@ -363,28 +365,11 @@ class ZdcMapController(
                 result.success(zdcMap!!.cameraPosition.zoom)
             }
 
-//            "map#setStyle" -> {
-//                invalidateMapIfNeeded()
-//                val mapStyleSet: Boolean
-//                mapStyleSet = if (call.arguments is String) {
-//                    val mapStyle = call.arguments as String
-//                    if (mapStyle == null) {
-//                        zdcMap!!.setMapStyle(null)
-//                    } else {
-//                        zdcMap!!.setMapStyle(MapStyleOptions(mapStyle))
-//                    }
-//                } else {
-//                    zdcMap!!.setMapStyle(null)
-//                }
-//                val mapStyleResult = ArrayList<Any>(2)
-//                mapStyleResult.add(mapStyleSet)
-//                if (!mapStyleSet) {
-//                    mapStyleResult.add(
-//                        "Unable to set the map style. Please check console logs for errors."
-//                    )
-//                }
-//                result.success(mapStyleResult)
-//            }
+            "map#setStyle" -> {
+                invalidateMapIfNeeded()
+                zdcMap!!.mapType = "its-mo"
+                result.success(null)
+            }
 
             "tileOverlays#update" -> {
                 invalidateMapIfNeeded()
@@ -502,7 +487,7 @@ class ZdcMapController(
         if (disposed) {
             return
         }
-        mapView.onResume()
+        mapView.onPause()
     }
 
     override fun onStop(owner: LifecycleOwner) {

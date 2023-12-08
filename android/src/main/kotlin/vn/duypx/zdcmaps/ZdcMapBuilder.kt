@@ -34,6 +34,7 @@ class ZdcMapBuilder : ZdcMapOptionsSink {
         options.scaleBarEnabled(false)
         val controller =
             ZdcMapController(id, context, binaryMessenger, lifecycleProvider, options)
+        controller.initial()
         controller.setMyLocationEnabled(myLocationEnabled)
         controller.setMyLocationButtonEnabled(myLocationButtonEnabled)
         controller.setIndoorEnabled(indoorEnabled)
