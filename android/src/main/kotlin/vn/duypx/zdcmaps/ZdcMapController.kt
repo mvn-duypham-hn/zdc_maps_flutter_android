@@ -91,7 +91,7 @@ class ZdcMapController(
     }
 
     private fun animateCamera(cameraUpdate: CameraUpdate) {
-        zdcMap!!.animateCamera(cameraUpdate)
+        zdcMap!!.animateCamera(cameraUpdate, 500, null)
     }
 
     private val cameraPosition: CameraPosition?
